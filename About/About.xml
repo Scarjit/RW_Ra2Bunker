@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Ra2Bunker[1.1]</name>
+  <author>Scarjit (1.1), AKreedz风影 (Original)</author>
+  <supportedVersions>
+    <li>1.1</li>
+  </supportedVersions>
+  <packageId>scarjit.ra2bunker</packageId>
+  <description>A simple Bunker MOD.</description>
+</ModMetaData>

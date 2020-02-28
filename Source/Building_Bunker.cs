@@ -74,6 +74,8 @@ namespace Ra2Bunker
             if (this.innerContainer.Count < 1) return;
             base.Tick();
             this.innerContainer.ThingOwnerTick(true);
+
+
         }
 
         public virtual void Open()

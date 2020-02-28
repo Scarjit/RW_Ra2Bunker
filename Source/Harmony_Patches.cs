@@ -18,13 +18,17 @@ namespace Ra2Bunker
             Log.Message("Hello World!");
             Harmony harmony = new Harmony(id: "rimworld.scarjit.ra2bunker");
 
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            var original = typeof(GameEnder).GetMethod("CheckOrUpdateGameOver");
+            var postfix = typeof(Patches).GetMethod("CheckOrUpdateGameOver_Postfix");
+            harmony.Patch(original, null, new HarmonyMethod(postfix));
+
         }
 
-        [HarmonyPatch(typeof(GameEnder))]
-        [HarmonyPatch("CheckOrUpdateGameOver")]
-        [HarmonyPrefix]
-        public void CheckOrUpdateGameOver_Prefix()
+    }
+
+    class Patches
+    {
+        public static void CheckOrUpdateGameOver_Postfix(GameEnder __instance)
         {
             List<Map> maps = Find.Maps;
             foreach (Map map in maps)
@@ -34,6 +38,7 @@ namespace Ra2Bunker
                 {
                     if (thing is Building_Bunker bunker && bunker.HasAnyContents)
                     {
+                        __instance.gameEnding = false;
                         return;
                     }
                 }
